@@ -9,6 +9,17 @@
 
 # Currency Exchange Rate Api
 
+    - Test Driven Development
+    - SOLID PRINCIPLES
+        S - Single Responsibility Principle.
+        O - Open/Closed Principle.
+        L - Liskov Substitution Principle.
+        I - Interface Segregation Principle.
+        D - Dependency Inversion Principle.
+    - API Integration
+    - Caching
+    - Rate limiting
+
 Create an account on https://app.freecurrencyapi.com
 
 # Running the application
