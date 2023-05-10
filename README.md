@@ -24,15 +24,15 @@ Create an account on https://app.freecurrencyapi.com
 
 # Running the application
 
-1. after cloning the project, add the env keys for FREE_CURRENCY_KEY_ID and FREE_CURRENCY_TTL
+    - After cloning the project, add the env keys for FREE_CURRENCY_KEY_ID and FREE_CURRENCY_TTL
 
-2. Run php artisan test to make sure everything is working as expected
+    - Run php artisan test to make sure everything is working as expected
 
-3. On your local machine run a HTTP Get Request inside Postman or Insomia http://localhost:8000/api/currency-rates
+    - On your local machine run a HTTP Get Request inside Postman or Insomia http://localhost:8000/api/currency-rates
 
-4. To convert a currency use http://localhost:8000/api/currency-conversion?amount=800&from_currency=USD&to_currency=ZAR
+    - To convert a currency use http://localhost:8000/api/currency-conversion?amount=800&from_currency=USD&to_currency=ZAR
 
-5. To get supported currencies see https://freecurrencyapi.com/docs/currency-list
+    - To get supported currencies see https://freecurrencyapi.com/docs/currency-list
 
 
 
