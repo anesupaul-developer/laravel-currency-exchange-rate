@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
-Route::get('/currency-conversion', 'App\Http\Controllers\CurrencyConversion@index')->name('currency.conversion');
-Route::get('/currency-rates', 'App\Http\Controllers\CurrencyConversion@rates')->name('currency.rates');
+Route::middleware(['throttle:currencies'])->group(function () {
+    Route::get('/currency-conversion', 'App\Http\Controllers\CurrencyConversion@index')->name('currency.conversion');
+    Route::get('/currency-rates', 'App\Http\Controllers\CurrencyConversion@rates')->name('currency.rates');
+});
