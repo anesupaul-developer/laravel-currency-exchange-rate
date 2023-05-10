@@ -2,20 +2,22 @@
 
 namespace App\Services;
 
-use App\CurrencyConverterInterface;
 use App\Exceptions\CurrencyConversionException;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class FreeCurrencyApi implements CurrencyConverterInterface
 {
 
-    public function getRates(): mixed
+    public function getRates(): array
     {
         return Cache::remember('latest_currencies', config('services.freecurrency.ttl'), function () {
-            return Http::get(self::FREE_CURRENCY_END_POINT . '/latest', [
+            $response = Http::get(self::FREE_CURRENCY_END_POINT . '/latest', [
                 'apikey' => config('services.freecurrency.key')
             ]);
+
+            return $response->collect()->get('data');
         });
     }
     protected const FREE_CURRENCY_END_POINT = 'https://api.freecurrencyapi.com/v1/';
@@ -34,7 +36,7 @@ class FreeCurrencyApi implements CurrencyConverterInterface
                 throw new CurrencyConversionException('Currency '. $toCurrency. ' is not supported.');
             }
 
-            $rates = $this->getRates()->collect()->get('data');
+            $rates = $this->getRates();
 
             return round(($amount * $rates[$toCurrency])/$rates[$fromCurrency], 2, PHP_ROUND_HALF_DOWN);
         } catch (CurrencyConversionException $exception) {
@@ -44,11 +46,6 @@ class FreeCurrencyApi implements CurrencyConverterInterface
 
     public function allowedCurrencies(): array
     {
-        return [
-            "AUD", "BGN", "BRL", "CAD","CHF","CNY","CZK","DKK","EUR",
-            "GBP","HKD","HRK", "HUF","IDR","ILS","INR","ISK","JPY","KRW",
-            "MXN","MYR", "NOK","NZD","PHP","PLN","RON","RUB","SEK","SGD",
-            "THB", "TRY","USD","ZAR"
-        ];
+        return array_keys($this->getRates());
     }
 }

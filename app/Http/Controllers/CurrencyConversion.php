@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\CurrencyConverterInterface;
 use App\Exceptions\CurrencyConversionException;
 use App\Http\Requests\CurrencyConversionRequest;
+use App\Services\CurrencyConverterInterface;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
@@ -24,7 +24,7 @@ class CurrencyConversion extends Controller
                     'converted_amount' => $convertedAmount
                 ]
             );
-        } catch(CurrencyConversionException $exception) {
+        } catch(\Exception $exception) {
             return response()->json(
                 [
                     'success' => false,
@@ -38,7 +38,7 @@ class CurrencyConversion extends Controller
     public function rates(CurrencyConverterInterface $currencyConverter) : \Illuminate\Http\JsonResponse
     {
         try {
-            return response()->json($currencyConverter->getRates()->collect());
+            return response()->json(['data' => $currencyConverter->getRates()]);
         } catch(\Exception $exception) {
             Log::channel('currencies')->info($exception->getMessage());
             return response()->json(

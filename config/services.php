@@ -33,6 +33,6 @@ return [
 
     'freecurrency' => [
         'key' => env('FREE_CURRENCY_KEY_ID'),
-        'ttl' => env('FREE_CURRENCY_TTL')
+        'ttl' => env('FREE_CURRENCY_TTL', 3600)
     ]
 ];

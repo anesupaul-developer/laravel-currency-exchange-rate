@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\CurrencyConverterInterface;
+use App\Services\CurrencyConverterInterface;
 use App\Services\FreeCurrencyApi;
 use Illuminate\Support\ServiceProvider;
 
