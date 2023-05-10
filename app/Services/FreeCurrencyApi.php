@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Http;
 class FreeCurrencyApi implements CurrencyConverterInterface
 {
 
+    private const FREE_CURRENCY_END_POINT = 'https://api.freecurrencyapi.com/v1/';
+
     public function getRates(): array
     {
         return Cache::remember('latest_currencies', config('services.freecurrency.ttl'), function () {
@@ -20,7 +22,6 @@ class FreeCurrencyApi implements CurrencyConverterInterface
             return $response->collect()->get('data');
         });
     }
-    protected const FREE_CURRENCY_END_POINT = 'https://api.freecurrencyapi.com/v1/';
 
     /**
      * @throws CurrencyConversionException
