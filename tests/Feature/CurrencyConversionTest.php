@@ -13,9 +13,29 @@ class CurrencyConversionTest extends TestCase
      */
     public function test_currency_conversion(): void
     {
-        $response = $this->get(route('currency.conversion', []));
+        $this->withoutExceptionHandling();
+
+        $response = $this->get(route('currency.conversion', [
+            'amount' => 5.00,
+            'from_currency' => 'USD',
+            'to_currency' => 'ZAR'
+        ]));
+
+        $response->assertOk();
+        $response->assertJsonStructure(['amount', 'from_currency', 'to_currency', 'converted_amount']);
+    }
+
+    /**
+     * A basic feature test get currency rates.
+     */
+    public function test_get_rates(): void
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->get(route('currency.rates'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure(['amount', 'from_currency', 'to_currency', 'converted_amount']);
+        $response->assertJsonStructure(['data']);
+        $response->assertJsonPath('data.USD', 1);
     }
 }

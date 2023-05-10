@@ -126,6 +126,12 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'currencies' => [
+            'path' => storage_path('logs/currencies.log'),
+            'driver' => 'single',
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
     ],
 
 ];

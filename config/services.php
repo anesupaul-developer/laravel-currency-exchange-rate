@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'freecurrency' => [
+        'key' => env('FREE_CURRENCY_KEY_ID'),
+        'ttl' => env('FREE_CURRENCY_TTL')
+    ]
 ];

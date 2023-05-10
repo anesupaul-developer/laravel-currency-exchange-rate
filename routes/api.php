@@ -18,4 +18,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/currency-conversion', 'App\Http\Controllers\CurrencyConversion')->name('currency.conversion');
+Route::get('/currency-conversion', 'App\Http\Controllers\CurrencyConversion@index')->name('currency.conversion');
+Route::get('/currency-rates', 'App\Http\Controllers\CurrencyConversion@rates')->name('currency.rates');
